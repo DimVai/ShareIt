@@ -203,6 +203,10 @@ label {
   color: var(--orange-soft);
   letter-spacing: 0.5px;
 }
+.input.bill.discount {
+    font-size: 20px;
+    color: var(--blue-soft);
+}
 
 /* ---------- φόρμα προσθήκης ---------- */
 .add-form {
@@ -405,6 +409,9 @@ label {
   color: var(--muted);
   font-size: 12px;
   margin-top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .res-total {
@@ -482,6 +489,16 @@ label {
   color: #fff;
   border-color: var(--red);
   background: rgba(255, 84, 112, 0.18);
+}
+
+.discount-btn {
+  display: block;
+  margin: 10px 0 0 auto;
+  width: fit-content;
+}
+
+.discount-field {
+  margin-top: 12px;
 }
 
 footer {

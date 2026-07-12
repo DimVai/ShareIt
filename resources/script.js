@@ -20,11 +20,14 @@
   const ZERO_PLACEHOLDER = '0' + DECIMAL_SEP + '00';
 
   const LS_KEY = 'shareit';
-  const state = { billRaw: '', people: [], nextId: 1 };
+  const state = { billRaw: '', discountRaw: '', discountUsed: false, people: [], nextId: 1 };
 
   /* ---------- στοιχεία σελίδας ---------- */
   const $ = id => document.getElementById(id);
   const billInput = $('billTotal');
+  const useDiscountBtn = $('useDiscountBtn');
+  const discountField = $('discountField');
+  const discountInput = $('discountAmount');
   const addForm = $('addForm');
   const nameInput = $('personName');
   const amountInput = $('personAmount');
@@ -42,6 +45,7 @@
   const roundNoteEl = $('roundNote');
   const clearAmountsBtn = $('clearAmountsBtn');
   const clearPeopleBtn = $('clearPeopleBtn');
+  const beforeDiscountEls = document.querySelectorAll('.before-discount');
 
   /* ---------- καθαρισμός ποσών ----------
      Κρατά μόνο ψηφία και μία υποδιαστολή (κόμμα ή τελεία),
@@ -102,6 +106,8 @@
     try {
       localStorage.setItem(LS_KEY, JSON.stringify({
         billRaw: state.billRaw,
+        discountRaw: state.discountRaw,
+        discountUsed: state.discountUsed,
         people: state.people,
         nextId: state.nextId
       }));
@@ -113,6 +119,8 @@
       const data = JSON.parse(localStorage.getItem(LS_KEY));
       if (!data || typeof data !== 'object') return;
       state.billRaw = sanitizeAmountString(typeof data.billRaw === 'string' ? data.billRaw : '');
+      state.discountRaw = sanitizeAmountString(typeof data.discountRaw === 'string' ? data.discountRaw : '');
+      state.discountUsed = data.discountUsed === true;
       if (Array.isArray(data.people)) {
         for (const p of data.people) {
           if (!p || typeof p.name !== 'string') continue;
@@ -201,11 +209,21 @@
 
   /* ---------- υπολογισμοί & αποτελέσματα ---------- */
   function recalc() {
-    const bill = toCents(state.billRaw);
+    /* billTotal: το τελικό ποσό που πρέπει να πληρωθεί συνολικά (μετά από τυχόν έκπτωση).
+       billBeforeDiscount: το ισοδύναμο πριν την έκπτωση — η βάση πάνω στην οποία μοιράζονται
+       τα ατομικά και τα κοινά ποσά (όπως στην τιμή χωρίς έκπτωση).
+       effectiveFactor: billTotal / billBeforeDiscount — η έκπτωση μοιράζεται αναλογικά στο τέλος
+       κάθε ατόμου (όταν δεν υπάρχει έκπτωση ισούται με 1, χωρίς ιδιαίτερο κλάδο). */
+    const billTotal = toCents(state.billRaw);
+    const discount = toCents(state.discountRaw);
+    const billBeforeDiscount = billTotal + discount;
+    const effectiveFactor = billTotal / billBeforeDiscount;
     const n = state.people.length;
     const personalSum = state.people.reduce((s, p) => s + toCents(p.amountRaw), 0);
-    const shared = bill - personalSum;
-    const hasBill = bill > 0;
+    const shared = billBeforeDiscount - personalSum;
+    const hasBill = billBeforeDiscount > 0;
+
+    for (const el of beforeDiscountEls) el.hidden = discount <= 0;
 
     sumRow.hidden = n === 0;
     personalSumEl.textContent = fmtMoney(personalSum);
@@ -251,7 +269,9 @@
 
     state.people.forEach((p, i) => {
       const personal = toCents(p.amountRaw);
-      const total = personal + sharedEach;
+      const grossTotal = personal + sharedEach;
+      const total = Math.ceil(grossTotal * effectiveFactor);
+      const personDiscount = grossTotal - total;
       sumRounded += total;
 
       const li = document.createElement('li');
@@ -267,7 +287,13 @@
       nm.textContent = p.name;
       const br = document.createElement('div');
       br.className = 'res-breakdown';
-      br.textContent = 'Ατομικά ' + fmtMoney(personal) + ' • Κοινά ' + fmtMoney(sharedEach);
+      const lines = ['Ατομικά: ' + fmtMoney(personal), 'Κοινά: ' + fmtMoney(sharedEach)];
+      if (discount > 0) lines.push('Έκπτωση: -' + fmtMoney(personDiscount));
+      for (const line of lines) {
+        const lineEl = document.createElement('span');
+        lineEl.textContent = line;
+        br.appendChild(lineEl);
+      }
       mid.append(nm, br);
 
       const tot = document.createElement('span');
@@ -279,7 +305,7 @@
     });
 
     grandTotalEl.textContent = fmtMoney(sumRounded);
-    const diff = sumRounded - bill;
+    const diff = sumRounded - billTotal;
     if (diff === 0) {
       roundNoteEl.textContent = '✓ Ίσο με τον λογαριασμό';
       roundNoteEl.classList.add('ok');
@@ -297,10 +323,30 @@
     recalc();
   });
 
+  bindAmountInput(discountInput, v => {
+    state.discountRaw = v;
+    save();
+    recalc();
+  });
+
+  useDiscountBtn.addEventListener('click', () => {
+    state.discountUsed = true;
+    useDiscountBtn.hidden = true;
+    discountField.hidden = false;
+    save();
+    discountInput.focus();
+  });
+
   bindAmountInput(amountInput, () => { /* μόνο καθαρισμός κατά την πληκτρολόγηση */ });
 
-  /* Enter στο συνολικό ποσό → μετάβαση στο όνομα νέου ατόμου */
   billInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      nameInput.focus();
+    }
+  });
+
+  discountInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
       e.preventDefault();
       nameInput.focus();
@@ -344,7 +390,7 @@
     btn.addEventListener('click', () => {
       if (!armed) {
         armed = true;
-        btn.textContent = 'Σίγουρα;';
+        btn.textContent = 'Επιβεβαίωση';
         btn.classList.add('armed');
         timer = setTimeout(disarm, 3500);
         return;
@@ -358,6 +404,11 @@
   armable(clearAmountsBtn, 'Νέος λογαριασμός', () => {
     state.billRaw = '';
     billInput.value = '';
+    state.discountRaw = '';
+    discountInput.value = '';
+    state.discountUsed = false;
+    useDiscountBtn.hidden = false;
+    discountField.hidden = true;
     for (const p of state.people) p.amountRaw = '';
     amountInput.value = '';
     save();
@@ -381,6 +432,11 @@
   /* ---------- εκκίνηση ---------- */
   load();
   billInput.value = state.billRaw;
+  discountInput.value = state.discountRaw;
+  if (state.discountUsed) {
+    useDiscountBtn.hidden = true;
+    discountField.hidden = false;
+  }
   renderPeople();
   recalc();
 })();
