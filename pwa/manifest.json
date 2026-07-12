@@ -1,0 +1,31 @@
+{
+    "id": "shareit",
+    "name": "ShareIt!",
+    "short_name": "ShareIt!",
+    "categories": [
+            "productivity"
+        ],
+    "start_url": "../",
+    "scope": "../",
+    "display": "standalone",    
+    "dir": "ltr",
+    "background_color": "#0b0f1f",
+    "theme_color": "#0b0f1f",
+    "description": "ShareIt! — Μοίρασε τον λογαριασμό στην παρέα εύκολα και δίκαια.",
+    "orientation": "portrait", 
+    "lang": "el",
+    "icons": [
+        {
+            "src": "../pwa/logo-192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any"
+        },
+        {
+            "src": "../pwa/logo-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any"
+        }
+    ]
+}
