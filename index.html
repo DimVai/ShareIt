@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0f1f">
+  <meta name="description" content="ShareIt! — Μοίρασε τον λογαριασμό στην παρέα εύκολα και δίκαια.">
+  <title>ShareIt! · Μοίρασε τον λογαριασμό</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app-header">
+      <img src="logo.svg" alt="Λογότυπο ShareIt!" class="logo" width="56" height="56">
+      <div>
+        <h1>Share<span class="t-it">It</span><span class="t-bang">!</span></h1>
+        <p class="tagline">Μοίρασε τον λογαριασμό εύκολα &amp; δίκαια</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2><span class="step step-orange">1</span> Ο λογαριασμός <button id="clearAmountsBtn" class="btn-mini" type="button">Νέος λογαριασμός</button></h2>
+      <label for="billTotal">Συνολικό ποσό λογαριασμού</label>
+      <div class="money-field">
+        <input id="billTotal" class="input bill" type="text" inputmode="decimal" autocomplete="off" maxlength="12" placeholder="0,00">
+        <span class="cur">€</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="step step-blue">2</span> Η παρέα <span id="peopleCount" class="count" hidden>0</span> <button id="clearPeopleBtn" class="btn-mini" type="button">Νέα παρέα</button></h2>
+      <ul id="peopleList" class="people"></ul>
+      <div id="sumRow" class="sum-row" hidden><span>Άθροισμα ατομικών</span><b id="personalSum">0,00 €</b></div>
+      <form id="addForm" class="add-form" autocomplete="off">
+        <input id="personName" class="input focus-blue" type="text" placeholder="Όνομα" maxlength="20" aria-label="Όνομα ατόμου">
+        <div class="money-field">
+          <input id="personAmount" class="input row-amount" type="text" inputmode="decimal" maxlength="10" placeholder="0,00" aria-label="Ατομικό ποσό">
+          <span class="cur">€</span>
+        </div>
+        <button type="submit" class="btn-add" aria-label="Προσθήκη ατόμου">+</button>
+      </form>
+      <p class="hint">Γράψε τι πήρε ο καθένας ατομικά — άφησε το ποσό κενό αν πήρε μόνο από τα κοινά.</p>
+    </section>
+
+    <section class="card">
+      <h2><span class="step step-orange">3</span> Τα κοινά</h2>
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">Μοιραζόμενο ποσό</span>
+          <span id="sharedTotal" class="stat-value">—</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Κοινά ανά άτομο</span>
+          <span id="sharedEach" class="stat-value">—</span>
+        </div>
+      </div>
+      <p id="warning" class="warning" hidden></p>
+    </section>
+
+    <section class="card">
+      <h2><span class="step step-blue">4</span> Το μοίρασμα</h2>
+      <div id="resultsRegion" aria-live="polite">
+        <p id="resultsHint" class="hint big-hint">Γράψε το συνολικό ποσό του λογαριασμού για να ξεκινήσεις.</p>
+        <ul id="resultsList" class="results"></ul>
+        <div id="grandRow" class="grand" hidden>
+          <div class="grand-left">
+            <span class="grand-label">Σύνολο παρέας</span>
+            <span id="roundNote" class="grand-note"></span>
+          </div>
+          <span id="grandTotal" class="grand-total">0,00 €</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>ShareIt! · φτιαγμένο για παρέες 🧡💙</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

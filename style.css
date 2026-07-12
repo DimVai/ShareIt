@@ -1,0 +1,502 @@
+/* ============================================
+   ShareIt! — dark mode με ζωντανά χρώματα
+   Πορτοκαλί (κύριο) · Μπλε (δευτερεύον)
+   Μόνο mobile διάταξη, κεντραρισμένη στο desktop
+   ============================================ */
+
+:root {
+  --bg: #0b0f1f;
+  --card: #161c33;
+  --card-inner: #0f1530;
+  --field: #0d1330;
+  --border: #2a3357;
+  --border-soft: rgba(255, 255, 255, 0.07);
+  --text: #eef1ff;
+  --muted: #8f9ac2;
+  --placeholder: #5b6693;
+  --orange: #ff7a1a;
+  --orange-soft: #ffa95e;
+  --blue: #2e9bff;
+  --blue-soft: #7cc6ff;
+  --red: #ff5470;
+  --green: #3ddc97;
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(420px 300px at 12% -40px, rgba(255, 122, 26, 0.17), transparent 70%),
+    radial-gradient(420px 300px at 88% -20px, rgba(46, 155, 255, 0.15), transparent 70%),
+    var(--bg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(255, 122, 26, 0.4);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- κεντρική «στήλη κινητού» ---------- */
+.app {
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 24px 16px calc(32px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---------- κεφαλίδα ---------- */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 2px 2px;
+}
+
+.logo {
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 6px 16px rgba(255, 122, 26, 0.35));
+}
+
+h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+h1 .t-it { color: var(--orange); }
+h1 .t-bang { color: var(--blue); }
+
+.tagline {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+/* ---------- κάρτες / βήματα ---------- */
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0)), var(--card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.step {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.step-orange {
+  background: linear-gradient(135deg, #ffb35c, #ff6a00);
+  color: #1a0d00;
+  box-shadow: 0 4px 12px rgba(255, 106, 0, 0.4);
+}
+
+.step-blue {
+  background: linear-gradient(135deg, #6fd3ff, #1e6bff);
+  color: #04122b;
+  box-shadow: 0 4px 12px rgba(30, 107, 255, 0.4);
+}
+
+.count {
+  margin-left: -4px; /* κολλητά δίπλα στον τίτλο (το h2 έχει gap 10px) */
+  background: rgba(46, 155, 255, 0.15);
+  color: var(--blue-soft);
+  border: 1px solid rgba(46, 155, 255, 0.35);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+/* ---------- πεδία ---------- */
+label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 6px 2px;
+}
+
+.input {
+  width: 100%;
+  background: var(--field);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 16px; /* ≥16px για να μη ζουμάρει το iOS */
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input::placeholder {
+  color: var(--placeholder);
+}
+
+.input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(255, 122, 26, 0.22);
+}
+
+.input.focus-blue:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(46, 155, 255, 0.22);
+}
+
+.money-field {
+  position: relative;
+}
+
+.money-field .cur {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.input.bill {
+  font-size: 30px;
+  font-weight: 800;
+  text-align: center;
+  padding: 14px 44px;
+  color: var(--orange-soft);
+  letter-spacing: 0.5px;
+}
+
+/* ---------- φόρμα προσθήκης ---------- */
+.add-form {
+  display: grid;
+  grid-template-columns: 1fr 108px 48px;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-add {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ffb35c, #ff6a00);
+  color: #1a0d00;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 6px 16px rgba(255, 106, 0, 0.35);
+  transition: transform 0.12s, filter 0.12s;
+}
+
+.btn-add:hover { filter: brightness(1.08); }
+.btn-add:active { transform: scale(0.93); }
+
+.hint {
+  color: var(--muted);
+  font-size: 12.5px;
+  margin: 10px 2px 0;
+  line-height: 1.45;
+}
+
+.big-hint {
+  font-size: 13.5px;
+  margin: 2px 2px 4px;
+}
+
+/* ---------- λίστα ατόμων ---------- */
+.people {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.people:empty {
+  display: none;
+}
+
+.person {
+  display: grid;
+  grid-template-columns: 36px 1fr 108px 34px;
+  gap: 10px;
+  align-items: center;
+  background: var(--card-inner);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 8px 8px 8px 10px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 16px;
+  color: #0b0f1f;
+}
+
+.av-orange { background: linear-gradient(135deg, #ffb35c, #ff6a00); }
+.av-blue { background: linear-gradient(135deg, #6fd3ff, #1e6bff); }
+
+.p-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-amount {
+  padding: 9px 26px 9px 10px;
+  text-align: right;
+  border-radius: 11px;
+}
+
+.person .cur,
+.add-form .cur {
+  right: 9px;
+  font-size: 13px;
+}
+
+.btn-del {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255, 84, 112, 0.12);
+  color: var(--red);
+  font-size: 16px;
+  line-height: 1;
+  transition: background 0.15s, transform 0.12s;
+}
+
+.btn-del:hover { background: rgba(255, 84, 112, 0.25); }
+.btn-del:active { transform: scale(0.9); }
+
+.sum-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 10px 0 12px;
+  padding: 0 2px;
+}
+
+.sum-row b {
+  color: var(--text);
+}
+
+/* ---------- κοινά έξοδα ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stat {
+  background: linear-gradient(180deg, rgba(46, 155, 255, 0.1), rgba(46, 155, 255, 0.03));
+  border: 1px solid rgba(46, 155, 255, 0.25);
+  border-radius: 14px;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--blue-soft);
+  white-space: nowrap;
+}
+
+.stat-value.neg {
+  color: var(--red);
+}
+
+.warning {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  background: rgba(255, 84, 112, 0.12);
+  border: 1px solid rgba(255, 84, 112, 0.35);
+  color: #ffb3c1;
+}
+
+/* ---------- αποτελέσματα ---------- */
+.results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  background: var(--card-inner);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.res-name {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.res-breakdown {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.res-total {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--orange-soft);
+  white-space: nowrap;
+}
+
+.grand {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(255, 122, 26, 0.15), rgba(46, 155, 255, 0.15));
+  border: 1px solid var(--border);
+}
+
+.grand-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.grand-label {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.grand-note {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.grand-note.ok {
+  color: var(--green);
+}
+
+.grand-total {
+  font-size: 23px;
+  font-weight: 800;
+  white-space: nowrap;
+  background: linear-gradient(90deg, #ffa95e, #7cc6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- κουμπιά καθαρισμού στις κεφαλίδες ---------- */
+.btn-mini {
+  margin-left: auto;
+  flex: none;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.btn-mini:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.btn-mini.armed {
+  color: #fff;
+  border-color: var(--red);
+  background: rgba(255, 84, 112, 0.18);
+}
+
+footer {
+  text-align: center;
+  color: var(--placeholder);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* αριθμοί με σταθερό πλάτος ψηφίων */
+.input.bill,
+.row-amount,
+.res-total,
+.stat-value,
+.grand-total,
+.sum-row b {
+  font-variant-numeric: tabular-nums;
+}

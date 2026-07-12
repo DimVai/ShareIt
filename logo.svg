@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Λογότυπο ShareIt!">
+  <defs>
+    <linearGradient id="gradOrange" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb35c"/>
+      <stop offset="1" stop-color="#ff6a00"/>
+    </linearGradient>
+    <linearGradient id="gradBlue" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6fd3ff"/>
+      <stop offset="1" stop-color="#1e6bff"/>
+    </linearGradient>
+    <linearGradient id="gradLens" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff3e4"/>
+      <stop offset="1" stop-color="#ffd0a3"/>
+    </linearGradient>
+    <clipPath id="clipLeft"><circle cx="24" cy="34" r="15"/></clipPath>
+  </defs>
+
+  <!-- δύο νομίσματα που μοιράζονται το κοινό κομμάτι στη μέση -->
+  <circle cx="24" cy="34" r="15" fill="url(#gradOrange)"/>
+  <circle cx="40" cy="34" r="15" fill="url(#gradBlue)"/>
+  <g clip-path="url(#clipLeft)">
+    <circle cx="40" cy="34" r="15" fill="url(#gradLens)"/>
+  </g>
+  <circle cx="24" cy="34" r="14.5" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1"/>
+  <circle cx="40" cy="34" r="14.5" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1"/>
+
+  <text x="32" y="39.2" text-anchor="middle"
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif"
+        font-size="14.5" font-weight="800" fill="#10224a">&#8364;</text>
+
+  <!-- σπίθες -->
+  <path d="M32 4.5 C32.6 7.4 33.9 8.7 36.8 9.3 C33.9 9.9 32.6 11.2 32 14.1 C31.4 11.2 30.1 9.9 27.2 9.3 C30.1 8.7 31.4 7.4 32 4.5 Z" fill="#ffd166"/>
+  <circle cx="9.5" cy="17" r="2" fill="#6fd3ff"/>
+  <circle cx="55" cy="14.5" r="1.7" fill="#ffb35c"/>
+</svg>
