@@ -45,7 +45,7 @@
   const roundNoteEl = $('roundNote');
   const clearAmountsBtn = $('clearAmountsBtn');
   const clearPeopleBtn = $('clearPeopleBtn');
-  const beforeDiscountEls = document.querySelectorAll('.before-discount');
+  const beforeDiscountEls = document.querySelectorAll('.when-discount');
 
   /* ---------- καθαρισμός ποσών ----------
      Κρατά μόνο ψηφία και μία υποδιαστολή (κόμμα ή τελεία),
@@ -158,7 +158,7 @@
       li.className = 'person';
 
       const av = document.createElement('span');
-      av.className = 'avatar ' + (i % 2 === 0 ? 'av-orange' : 'av-blue');
+      av.className = 'avatar ' + (i % 4 === 0 ? 'av-blue' : i % 4 === 1 ? 'av-pink' : i % 4 === 2 ? 'av-green' : 'av-orange');
       av.textContent = initialOf(p.name);
 
       const nm = document.createElement('span');
@@ -278,7 +278,7 @@
       li.className = 'result';
 
       const av = document.createElement('span');
-      av.className = 'avatar ' + (i % 2 === 0 ? 'av-orange' : 'av-blue');
+      av.className = 'avatar ' + (i % 4 === 0 ? 'av-blue' : i % 4 === 1 ? 'av-pink' : i % 4 === 2 ? 'av-green' : 'av-orange');
       av.textContent = initialOf(p.name);
 
       const mid = document.createElement('div');

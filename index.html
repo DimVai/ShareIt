@@ -23,7 +23,7 @@
 
     <section class="card">
       <h2><span class="step step-orange">1</span> Ο λογαριασμός <button id="clearAmountsBtn" class="btn-mini" type="button">Νέος λογαριασμός</button></h2>
-      <label for="billTotal">Συνολικό ποσό λογαριασμού</label>
+      <label for="billTotal">Συνολικό ποσό λογαριασμού <span class="when-discount">(μετά την έκπτωση)</span> </label>
       <div class="money-field">
         <input id="billTotal" class="input bill" type="text" inputmode="decimal" autocomplete="off" maxlength="12" placeholder="0,00">
         <span class="cur">€</span>
@@ -39,7 +39,7 @@
     </section>
 
     <section class="card">
-      <h2><span class="step step-blue">2</span> Η παρέα <span id="peopleCount" class="count" hidden>0</span> <button id="clearPeopleBtn" class="btn-mini" type="button">Νέα παρέα</button></h2>
+      <h2><span class="step step-orange">2</span> Η παρέα <span id="peopleCount" class="count" hidden>0</span> <button id="clearPeopleBtn" class="btn-mini" type="button">Νέα παρέα</button></h2>
       <ul id="peopleList" class="people"></ul>
       <div id="sumRow" class="sum-row" hidden><span>Άθροισμα ατομικών</span><b id="personalSum">0,00 €</b></div>
       <form id="addForm" class="add-form" autocomplete="off">
@@ -50,11 +50,11 @@
         </div>
         <button type="submit" class="btn-add" aria-label="Προσθήκη ατόμου">+</button>
       </form>
-      <p class="hint">Γράψε τι παρήγγηλε ο καθένας ατομικά <span class="before-discount">(χωρίς την έκπτωση)</span> — άφησε το ποσό κενό αν κατανάλωσε μόνο από τα κοινά.</p>
+      <p class="hint">Γράψε τι κατανάλωσε ο καθένας ατομικά <span class="when-discount">(χωρίς την έκπτωση)</span> — άφησε το ποσό κενό αν κατανάλωσε μόνο από τα κοινά.</p>
     </section>
 
     <section class="card">
-      <h2><span class="step step-orange">3</span> Τα κοινά έξοδα <span class="before-discount">(χωρίς την έκπτωση)</span></h2>
+      <h2><span class="step step-orange">3</span> Τα κοινά έξοδα <span class="when-discount">(χωρίς την έκπτωση)</span></h2>
       <div class="stats">
         <div class="stat">
           <span class="stat-label">Μοιραζόμενο ποσό</span>
@@ -69,7 +69,7 @@
     </section>
 
     <section class="card">
-      <h2><span class="step step-blue">4</span> Το μοίρασμα</h2>
+      <h2><span class="step step-orange">4</span> Το μοίρασμα</h2>
       <div id="resultsRegion" aria-live="polite">
         <p id="resultsHint" class="hint big-hint">Γράψε το συνολικό ποσό του λογαριασμού για να ξεκινήσεις.</p>
         <ul id="resultsList" class="results"></ul>

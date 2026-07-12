@@ -282,8 +282,10 @@ label {
   color: #0b0f1f;
 }
 
-.av-orange { background: linear-gradient(135deg, #ffb35c, #ff6a00); }
-.av-blue { background: linear-gradient(135deg, #6fd3ff, #1e6bff); }
+.av-blue { background: linear-gradient(135deg, hsl(198, 100%, 72%), hwb(219 12% 0%)); }
+.av-pink { background: linear-gradient(135deg, hsl(327, 100%, 72%), hsl(343, 100%, 56%)); }
+.av-green { background: linear-gradient(135deg, hsl(158, 100%, 72%), hsl(175, 71%, 35%)); }
+.av-orange { background: linear-gradient(135deg, hsl(32, 100%, 68%), hsl(25, 100%, 50%)); }
 
 .p-name {
   font-weight: 600;
@@ -454,7 +456,7 @@ label {
 }
 
 .grand-total {
-  font-size: 23px;
+  font-size: 26px;
   font-weight: 800;
   white-space: nowrap;
   background: linear-gradient(90deg, #ffa95e, #7cc6ff);
