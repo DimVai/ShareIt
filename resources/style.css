@@ -196,7 +196,7 @@ label {
 }
 
 .input.bill {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 800;
   text-align: center;
   padding: 14px 44px;
@@ -427,13 +427,13 @@ label {
 .grand {
   margin-top: 26px;
   margin-bottom: 20px;
-  padding: 12px 14px;
+  padding: 15px;
   border-radius: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, rgba(255, 122, 26, 0.15), rgba(46, 155, 255, 0.15));
+  background: linear-gradient(135deg, rgba(255, 122, 26, 0.10), rgba(46, 155, 255, 0.10));
   border: 1px solid var(--border);
 }
 
@@ -449,7 +449,7 @@ label {
 }
 
 .grand-note {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--muted);
 }
 
@@ -458,10 +458,10 @@ label {
 }
 
 .grand-total {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 800;
   white-space: nowrap;
-  background: linear-gradient(90deg, #ffa95e, #7cc6ff);
+  background-color: var(--orange);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
